@@ -22,4 +22,14 @@ CREATE TABLE IF NOT EXISTS alunos (
     )
 """)
 
-print("Tabela criada com sucesso")
+
+#inserir um aluno no banco de dados
+nome = input("Digite o nome do aluno que desejar cadastrar: ")
+cursor.execute(f"""
+INSERT INTO alunos (nome, idade, curso)
+VALUES (?,?,?)
+""", (nome, 20, 'Medicina'))
+
+#Precisamos confirmar as alterações no banco de dados
+conexao.commit()
+

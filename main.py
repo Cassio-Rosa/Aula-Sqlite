@@ -30,6 +30,21 @@ INSERT INTO alunos (nome, idade, curso)
 VALUES (?,?,?)
 """, (nome, 20, 'Medicina'))
 
+
+#Podemos cadastrar varias informações no banco de dados
+alunos = [
+    ('Enzo', 22, 'Direito'),
+    ('Murilo', 33, 'Computação'),
+    ('Eduardo', 41, 'Computação'),
+]
+
+# Executemany permite inserir múltiplas linhas de uma vez só
+cursor.executemany("""
+INSERT INTO alunos (nome, idade, curso)
+VALUES (?,?,?)
+""", alunos)
+
+
 #Precisamos confirmar as alterações no banco de dados
 conexao.commit()
 

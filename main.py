@@ -70,8 +70,26 @@ CREATE TABLE IF NOT EXISTS alunos (
 
 #Deletando dados no banco
 
-cursor.execute("DELETE FROM alunos WHERE id=?", (2,))
-conexao.commit()
-#SEMPRE FECHAR A CONEXAOOO
-conexao.close()
-#obrigado :D
+def deletar_aluno():
+    try:
+        conexao = sqlite3.connect("escola.db")
+        cursor = conexao.cursor()
+
+        id_aluno = int(input("Digite o ID do aluno que deseja deletar: "))
+
+        cursor.execute("DELETE FROM alunos WHERE id=?", (id_aluno,))
+        conexao.commit()
+        #Verificar se o item foi deletado
+        if cursor.rowcount > 0:
+            print("Aluno removido com sucesso")
+        else:
+            print("Nenhum aluno cadastrado com o ID fornecido")
+    except Exception as erro:
+        print(f"Errp ap tentar excluir o aluno. Erro = {erro}")
+    finally:
+        #Sempre fecha a conexão, com sucesso ou erro
+        if conexao:
+            conexao.close()
+       
+deletar_aluno()
+
